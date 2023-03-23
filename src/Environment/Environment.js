@@ -13,6 +13,7 @@ export default function Environment() {
         generateWumpus();
         generatePit();
         generatePit();
+        generateGold();
       }, []);
 
     function isValid(i, j) {
@@ -68,6 +69,17 @@ export default function Environment() {
             const newState = [...oldState];
             newState[i][j] += "\nP";
             generateBreeze(i, j, newState);
+            return newState;
+        })
+    }
+
+    function generateGold() {
+        const iMin = 0, iMax = 3, jMin = 0, jMax = 3;
+        const i = Math.floor(Math.random() * (iMax - iMin + 1)) + iMin;
+        const j = Math.floor(Math.random() * (jMax - jMin + 1)) + jMin;
+        setState((oldState) => {
+            const newState = [...oldState];
+            newState[i][j] += "\nG";
             return newState;
         })
     }

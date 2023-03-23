@@ -114,6 +114,16 @@ export default function Agent({state, updateState}) {
         }
     }
 
+    function onEnterKeyPressed() {
+        if (state[locationX][locationY].includes('G')) {
+            updateState((oldState) => {
+                const newState = [...oldState];
+                newState[locationX][locationY] = newState[locationX][locationY].replace("G", " ");
+                return newState;
+            })
+        }
+    }
+
     function handleKeyDown(event) {
         if (event.keyCode == '38') {
             console.log('Arrow Up Key Pressed')
@@ -130,6 +140,9 @@ export default function Agent({state, updateState}) {
         else if (event.keyCode == '39') {
             console.log('Arrow Right Key Pressed')
             onArrowRightPressed();
+        } else if (event.keyCode == '13') {
+            console.log('Enter Key Pressed')
+            onEnterKeyPressed();
         }
     }
 
