@@ -6,7 +6,17 @@ export default function Agent({state, updateState}) {
     const [direction, setDirection] =  useState('E');
     const [locationX, setLocationX] =  useState(0);
     const [locationY, setLocationY] =  useState(0);
+    const [score, setScore] =  useState(0);
+    const [agentDead, setAgentDead] =  useState(false);
+    const [hasGold, setHasGold] =  useState(false);
+    const [moveCounter, setMoveCounter] = useState(0);
     document.onkeydown = handleKeyDown;
+
+    useEffect(() => {
+        updateDirectionOfAgent();
+        updateLocationOfAgent();
+        updateScore();
+    }, [direction, locationX, locationY, hasGold])
 
     function isValid(i, j) {
         if (i >=0 && i < 4 && j >= 0 && j < 4)
@@ -56,11 +66,6 @@ export default function Agent({state, updateState}) {
             return newState;
         })
     }
-
-    useEffect(() => {
-        updateDirectionOfAgent();
-        updateLocationOfAgent();
-    }, [direction, locationX, locationY])
 
     function onArrowUpPressed() {
         if (direction === 'N') {
@@ -121,10 +126,14 @@ export default function Agent({state, updateState}) {
                 newState[locationX][locationY] = newState[locationX][locationY].replace("G", " ");
                 return newState;
             })
+            setHasGold(true);
         }
     }
 
     function handleKeyDown(event) {
+        if (agentDead)
+            return;
+        setMoveCounter(oldValue => oldValue + 1)
         if (event.keyCode == '38') {
             console.log('Arrow Up Key Pressed')
             onArrowUpPressed();
@@ -146,8 +155,27 @@ export default function Agent({state, updateState}) {
         }
     }
 
+    function updateScore() {
+        console.log(locationX, locationY);
+        if (state[locationX][locationY].includes("W") || state[locationX][locationY].includes("P")) {
+            setScore((oldScore) => {
+                oldScore -= 1000;
+                setAgentDead(true);
+                return oldScore;
+            })
+        }
+        if (hasGold) {
+            setScore((oldScore) => {
+                oldScore += 1001;
+                setAgentDead(true);
+                return oldScore;
+            })
+        }
+    }
+
     return (
         <>
+            <h1>Score: {score - moveCounter}</h1>
             <Board grid={state}></Board>
         </>
     )
