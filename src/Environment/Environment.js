@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Board from "../Board/Board";
+import Agent from "../Agent/Agent";
 
 const dir_row = [1, -1, 0, 0];
 const dir_col = [0, 0, 1, -1];
 
 export default function Environment() {
 
-    const [state, setState] = useState([[null, null, null, null], [null, null, null, null], [null, null, null, null],  [null, null, null, null]]);
+    const [state, setState] = useState([[' ', ' ', ' ', ' '], [' ', ' ', ' ', ' '], [' ', ' ', ' ', ' '],  [' ', ' ', ' ', ' ']]);
 
     useEffect(() => {
         console.log('inside useEffect');
@@ -39,7 +39,7 @@ export default function Environment() {
         }
         setState((oldState) => {
             const newState = [...oldState];
-            newState[i][j] = "W";
+            newState[i][j] += "W";
             generateStench(i, j, newState);
             return newState;
         })
@@ -50,12 +50,8 @@ export default function Environment() {
             let newX = x + dir_row[i];
             let newY = y + dir_col[i];
             if (isValid(newX, newY))
-                if (state[newX][newY] == 'Stench') {
-                    state[newX][newY] = 'Stench \nBreeze'
-                } else if (state[newX][newY] == 'W') {
-                    state[newX][newY] = 'W \nBreeze'
-                } else {
-                    state[newX][newY] = 'Breeze'
+                if(!state[newX][newY].includes('Breeze')) {
+                    state[newX][newY] += '\nBreeze';
                 }
                
         }
@@ -70,11 +66,7 @@ export default function Environment() {
         }
         setState((oldState) => {
             const newState = [...oldState];
-            if (newState[i][j] == "W") {
-                newState[i][j] = "W P"
-            } else {
-                newState[i][j] = "P";
-            }
+            newState[i][j] += "\nP";
             generateBreeze(i, j, newState);
             return newState;
         })
@@ -82,7 +74,7 @@ export default function Environment() {
 
     return (
         <>
-            <Board grid={state}></Board>
+            <Agent state={state} updateState={setState}></Agent>
             <button onClick={generateWumpus} colorScheme='teal'>Play Again!</button>
         </>
     )
