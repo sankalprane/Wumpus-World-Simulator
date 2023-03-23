@@ -26,7 +26,7 @@ export default function Environment() {
             let newX = x + dir_row[i];
             let newY = y + dir_col[i];
             if (isValid(newX, newY))
-                state[newX][newY] = 'Stench'
+                state[newX][newY] += 'Stench'
         }
     }
 
