@@ -6,6 +6,7 @@ const dir_col = [0, 0, 1, -1];
 
 export default function Environment() {
 
+    const [refresh, setRefresh] = useState(false);
     const [state, setState] = useState([[' ', ' ', ' ', ' '], [' ', ' ', ' ', ' '], [' ', ' ', ' ', ' '],  [' ', ' ', ' ', ' ']]);
 
     useEffect(() => {
@@ -14,7 +15,19 @@ export default function Environment() {
         generatePit();
         generatePit();
         generateGold();
-      }, []);
+    }, []);
+
+    useEffect(() => {
+        if (refresh) {
+          // Put the logic to refresh the component here
+          console.log('Component refreshed!');
+          setRefresh(false);
+        }
+    }, [refresh]);
+    
+    function handleRefreshClick() {
+        setRefresh(true);
+    }
 
     function isValid(i, j) {
         if (i >=0 && i < 4 && j >= 0 && j < 4)
@@ -85,9 +98,11 @@ export default function Environment() {
     }
 
     return (
-        <>
-            <Agent state={state} updateState={setState}></Agent>
-            <button onClick={generateWumpus} colorScheme='teal'>Play Again!</button>
-        </>
+        <div>
+            {!refresh && (
+              <Agent state={state} updateState={setState}></Agent>
+            )}
+            <button onClick={handleRefreshClick}>PLAY AGAIN!</button>
+        </div>
     )
 }

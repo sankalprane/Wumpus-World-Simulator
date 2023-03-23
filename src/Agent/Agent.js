@@ -176,7 +176,7 @@ export default function Agent({state, updateState}) {
     return (
         <>
             <h1>Score: {score - moveCounter}</h1>
-            <Board grid={state}></Board>
+            <Board grid={state} locationX={locationX} locationY={locationY}></Board>
         </>
     )
 }
