@@ -22,6 +22,13 @@ export default function Board({ grid, locationX, locationY }) {
     function displayUI(col, i, j) {
         const cell = []
         if (visited[i][j]) {
+            if (col.includes('W')) {
+                col = col.replace("W", "")
+                cell.push (
+                    <>
+                        <img className="wumpus" src={require('../Static/Images/Wumpus.png')} alt="Test" />
+                    </>);
+            }
             if (col.includes('G')) {
                 col = col.replace("G", "")
                 cell.push (
