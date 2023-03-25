@@ -53,5 +53,5 @@
   .info {
     display: flex;
     flex-direction: column;
-    padding: 50px;
+    padding: 0 50px;
   }

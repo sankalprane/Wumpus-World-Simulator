@@ -1,0 +1,28 @@
+.stats {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.arrow-keys {
+    height: 150px;
+}
+
+.spacebar {
+    width: 300px;
+}
+
+.enter-key {
+    height: 150px;
+}
+
+.action {
+    display: flex;
+    flex-direction: row;
+    padding: 15px 0px;
+}
+
+.action-text {
+    font-size: 20px;
+    width: 150px;
+    font-weight: bold;
+}

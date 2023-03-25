@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import Board from '../Board/Board';
+import './Agent.css';
 
-export default function Agent({state, updateState, handleRefreshClick}) {
+export default function Agent({ state, updateState, handleRefreshClick }) {
 
-    const [arrowCount, setArrowCount] =  useState(1);
-    const [direction, setDirection] =  useState('E');
-    const [locationX, setLocationX] =  useState(0);
-    const [locationY, setLocationY] =  useState(0);
-    const [score, setScore] =  useState(0);
-    const [agentDead, setAgentDead] =  useState(false);
-    const [hasGold, setHasGold] =  useState(false);
-    const [wumpusDead, setWumpusDead] =  useState(false);
+    const [arrowCount, setArrowCount] = useState(1);
+    const [direction, setDirection] = useState('E');
+    const [locationX, setLocationX] = useState(0);
+    const [locationY, setLocationY] = useState(0);
+    const [score, setScore] = useState(0);
+    const [agentDead, setAgentDead] = useState(false);
+    const [hasGold, setHasGold] = useState(false);
+    const [wumpusDead, setWumpusDead] = useState(false);
     const [moveCounter, setMoveCounter] = useState(0);
     document.onkeydown = handleKeyDown;
 
@@ -27,7 +28,7 @@ export default function Agent({state, updateState, handleRefreshClick}) {
     }, [wumpusDead])
 
     function isValid(i, j) {
-        if (i >=0 && i < 4 && j >= 0 && j < 4)
+        if (i >= 0 && i < 4 && j >= 0 && j < 4)
             return true;
         return false;
     }
@@ -245,8 +246,23 @@ export default function Agent({state, updateState, handleRefreshClick}) {
         <>
             <Board grid={state} locationX={locationX} locationY={locationY} arrowCount={arrowCount}></Board>
             <div class='info'>
-                <h1>Current Score: {score - moveCounter}</h1>
-                <h1>Arrows Remaining: {arrowCount}</h1>
+                <div className="stats">Score: {score - moveCounter}</div>
+                <div className="stats">Arrows Remaining: {arrowCount}</div>
+                <div style={{"margin-top": "10px"}}>
+                    <div className="stats">Controls:</div>
+                    <div className="action">
+                        <div className="action-text">Move:</div>
+                        <img className="arrow-keys" src={require('../Static/Images/Arrow-Keys.png')} alt="Arrow Keys" />
+                    </div>
+                    <div className="action">
+                        <div className="action-text">Shoot Arrow:</div>
+                        <img className="spacebar" src={require('../Static/Images/Space-Bar.png')} alt="Spacebar" />
+                    </div>
+                    <div className="action">
+                        <div className="action-text">Grab Gold:</div>
+                        <img className="enter-key" src={require('../Static/Images/Enter-Key.png')} alt="Enter Key" />
+                    </div>
+                </div>
                 <button onClick={handleRefreshClick}>PLAY AGAIN!</button>
             </div>
         </>
