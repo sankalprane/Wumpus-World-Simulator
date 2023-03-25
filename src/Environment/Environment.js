@@ -105,11 +105,13 @@ export default function Environment() {
 
     return (
         <>
-        <nav>Wumpus World Simulator</nav>
+        <nav>Wumpus World Simulator
+            <button className="reset-btn" onClick={handleRefreshClick}>RESET</button>
+        </nav>
   
         <div className='main-div'>
             {!refresh && (
-              <Agent state={state} updateState={setState} handleRefreshClick={handleRefreshClick}></Agent>
+              <Agent state={state} updateState={setState}></Agent>
             )}
         </div>
         </>

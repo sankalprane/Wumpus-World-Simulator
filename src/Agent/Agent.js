@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Board from '../Board/Board';
 import './Agent.css';
 
-export default function Agent({ state, updateState, handleRefreshClick }) {
+export default function Agent({ state, updateState }) {
 
     const [arrowCount, setArrowCount] = useState(1);
     const [direction, setDirection] = useState('E');
@@ -246,7 +246,7 @@ export default function Agent({ state, updateState, handleRefreshClick }) {
         <>
             <Board grid={state} locationX={locationX} locationY={locationY} arrowCount={arrowCount}></Board>
             <div class='info'>
-                <div className="stats">Score: {score - moveCounter}</div>
+                <div className="stats">Current Score: {score - moveCounter}</div>
                 <div className="stats">Arrows Remaining: {arrowCount}</div>
                 <div style={{"margin-top": "10px"}}>
                     <div className="stats">Controls:</div>
@@ -263,7 +263,6 @@ export default function Agent({ state, updateState, handleRefreshClick }) {
                         <img className="enter-key" src={require('../Static/Images/Enter-Key.png')} alt="Enter Key" />
                     </div>
                 </div>
-                <button onClick={handleRefreshClick}>PLAY AGAIN!</button>
             </div>
         </>
     )
