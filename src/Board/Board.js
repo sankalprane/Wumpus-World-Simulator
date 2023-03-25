@@ -93,7 +93,7 @@ export default function Board({ grid, locationX, locationY, arrowCount }) {
                 }
             }
         } else {
-            return (<span key={j} className="puzzle-square"></span>);
+            return (<span key={j} className="puzzle-square-unvisited"></span>);
         }
         return (<span key={j} className="puzzle-square">{col}{cell}</span>)
     }
