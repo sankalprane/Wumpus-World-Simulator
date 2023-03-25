@@ -3,12 +3,14 @@ import Board from '../Board/Board';
 
 export default function Agent({state, updateState}) {
 
+    const [arrowCount, setArrowCount] =  useState(1);
     const [direction, setDirection] =  useState('E');
     const [locationX, setLocationX] =  useState(0);
     const [locationY, setLocationY] =  useState(0);
     const [score, setScore] =  useState(0);
     const [agentDead, setAgentDead] =  useState(false);
     const [hasGold, setHasGold] =  useState(false);
+    const [wumpusDead, setWumpusDead] =  useState(false);
     const [moveCounter, setMoveCounter] = useState(0);
     document.onkeydown = handleKeyDown;
 
@@ -17,6 +19,12 @@ export default function Agent({state, updateState}) {
         updateLocationOfAgent();
         updateScore();
     }, [direction, locationX, locationY, hasGold])
+
+    useEffect(() => {
+        if (wumpusDead) {
+            clearStench();
+        }
+    }, [wumpusDead])
 
     function isValid(i, j) {
         if (i >=0 && i < 4 && j >= 0 && j < 4)
@@ -130,6 +138,63 @@ export default function Agent({state, updateState}) {
         }
     }
 
+    function clearStench(newState) {
+        updateState((oldState) => {
+            const newState = [...oldState];
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < 4; j++) {
+                    if (newState[i][j].includes("Stench")) {
+                        newState[i][j] = newState[i][j].replace("Stench", "")
+                    }
+                }
+            }
+            return newState;
+        })
+
+    }
+
+    function onSpaceBarPressed() {
+        if (arrowCount === 1) {
+            updateState((oldState) => {
+                const newState = [...oldState];
+                if (direction === 'E') {
+                    for (let y = locationY; y < 4; y++) {
+                        if (newState[locationX][y].includes('W')) {
+                            setWumpusDead(true);
+                            newState[locationX][y] = newState[locationX][y].replace("W", "")
+                        }
+                    }
+                }
+                if (direction === 'W') {
+                    for (let y = locationY; y >= 0; y--) {
+                        if (newState[locationX][y].includes('W')) {
+                            setWumpusDead(true);
+                            newState[locationX][y] = newState[locationX][y].replace("W", "")
+                        }
+                    }
+                }
+                if (direction === 'N') {
+                    for (let x = locationX; x >= 0; x--) {
+                        if (newState[x][locationY].includes('W')) {
+                            setWumpusDead(true);
+                            newState[x][locationY] = newState[x][locationY].replace("W", "")
+                        }
+                    }
+                }
+                if (direction === 'S') {
+                    for (let x = locationX; x < 4; x++) {
+                        if (newState[x][locationY].includes('W')) {
+                            setWumpusDead(true);
+                            newState[x][locationY] = newState[x][locationY].replace("W", "")
+                        }
+                    }
+                }
+                return newState;
+            })
+            setArrowCount(0);
+        }
+    }
+
     function handleKeyDown(event) {
         if (agentDead)
             return;
@@ -152,6 +217,9 @@ export default function Agent({state, updateState}) {
         } else if (event.keyCode == '13') {
             console.log('Enter Key Pressed')
             onEnterKeyPressed();
+        } else if (event.keyCode == '32') {
+            console.log('SpaceBar Pressed')
+            onSpaceBarPressed();
         }
     }
 
@@ -176,7 +244,8 @@ export default function Agent({state, updateState}) {
     return (
         <>
             <h1>Score: {score - moveCounter}</h1>
-            <Board grid={state} locationX={locationX} locationY={locationY}></Board>
+            <h1>Arrows Remaining: {arrowCount}</h1>
+            <Board grid={state} locationX={locationX} locationY={locationY} arrowCount={arrowCount}></Board>
         </>
     )
 }

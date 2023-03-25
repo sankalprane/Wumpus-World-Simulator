@@ -2,7 +2,7 @@ import React, { useState, useEffect, cloneElement } from 'react'
 import './Board.css'
 const visitedLocations = new Set();
 
-export default function Board({ grid, locationX, locationY }) {
+export default function Board({ grid, locationX, locationY, arrowCount }) {
 
     const [visited, setVisited] = useState([[false, false, false, false], [false, false, false, false], [false, false, false, false], [false, false, false, false]]);
 
@@ -38,31 +38,59 @@ export default function Board({ grid, locationX, locationY }) {
             }
             if (col.includes('>')) {
                 col = col.replace(">", "")
-                cell.push (
-                    <>
-                        <img className="cell" src={require('../Static/Images/Agent-East.png')} alt="Test" />
-                    </>);
+                if (arrowCount) {
+                    cell.push (
+                        <>
+                            <img className="cell" src={require('../Static/Images/Agent-East-Arrow.png')} alt="Test" />
+                        </>);
+                } else {
+                    cell.push (
+                        <>
+                            <img className="cell" src={require('../Static/Images/Agent-East.png')} alt="Test" />
+                        </>);
+                }
             }
             if (col.includes('V')) {
                 col = col.replace("V", "")
-                cell.push (
-                    <>
-                        <img className="cell" src={require('../Static/Images/Agent-South.png')} alt="Test" />
-                    </>);
+                if (arrowCount) {
+                    cell.push (
+                        <>
+                            <img className="cell" src={require('../Static/Images/Agent-South-Arrow.png')} alt="Test" />
+                        </>);
+                } else {
+                    cell.push (
+                        <>
+                            <img className="cell" src={require('../Static/Images/Agent-South.png')} alt="Test" />
+                        </>);
+                }
             }
             if (col.includes('A')) {
                 col = col.replace("A", "")
-                cell.push (
-                    <>
-                        <img className="cell" src={require('../Static/Images/Agent-North.png')} alt="Test" />
-                    </>);
+                if (arrowCount) {
+                    cell.push (
+                        <>
+                            <img className="cell" src={require('../Static/Images/Agent-North-Arrow.png')} alt="Test" />
+                        </>);
+                } else {
+                    cell.push (
+                        <>
+                            <img className="cell" src={require('../Static/Images/Agent-North.png')} alt="Test" />
+                        </>);
+                }
             }
             if (col.includes('<')) {
                 col = col.replace("<", "")
-                cell.push (
-                    <>
-                        <img className="cell" src={require('../Static/Images/Agent-West.png')} alt="Test" />
-                    </>);
+                if (arrowCount) {
+                    cell.push (
+                        <>
+                            <img className="cell" src={require('../Static/Images/Agent-West-Arrow.png')} alt="Test" />
+                        </>);
+                } else {
+                    cell.push (
+                        <>
+                            <img className="cell" src={require('../Static/Images/Agent-West.png')} alt="Test" />
+                        </>);
+                }
             }
         } else {
             return (<span key={j} className="puzzle-square"></span>);
