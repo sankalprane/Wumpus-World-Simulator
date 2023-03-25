@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Board from '../Board/Board';
 
-export default function Agent({state, updateState}) {
+export default function Agent({state, updateState, handleRefreshClick}) {
 
     const [arrowCount, setArrowCount] =  useState(1);
     const [direction, setDirection] =  useState('E');
@@ -243,9 +243,12 @@ export default function Agent({state, updateState}) {
 
     return (
         <>
-            <h1>Score: {score - moveCounter}</h1>
-            <h1>Arrows Remaining: {arrowCount}</h1>
             <Board grid={state} locationX={locationX} locationY={locationY} arrowCount={arrowCount}></Board>
+            <div class='info'>
+                <h1>Current Score: {score - moveCounter}</h1>
+                <h1>Arrows Remaining: {arrowCount}</h1>
+                <button onClick={handleRefreshClick}>PLAY AGAIN!</button>
+            </div>
         </>
     )
 }

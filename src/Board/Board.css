@@ -49,3 +49,9 @@
     width: 80px;
     height: 80px;
   }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+  }

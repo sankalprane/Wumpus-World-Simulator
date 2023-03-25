@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Agent from "../Agent/Agent";
+import './Environment.css';
 
 const dir_row = [1, -1, 0, 0];
 const dir_col = [0, 0, 1, -1];
@@ -103,11 +104,14 @@ export default function Environment() {
     }
 
     return (
-        <div>
+        <>
+        <nav>Wumpus World Simulator</nav>
+  
+        <div className='main-div'>
             {!refresh && (
-              <Agent state={state} updateState={setState}></Agent>
+              <Agent state={state} updateState={setState} handleRefreshClick={handleRefreshClick}></Agent>
             )}
-            <button onClick={handleRefreshClick}>PLAY AGAIN!</button>
         </div>
+        </>
     )
 }

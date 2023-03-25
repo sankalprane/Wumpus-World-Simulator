@@ -1,0 +1,25 @@
+.main-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+}
+
+.settings-div {
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+nav {
+    height: 60px;
+    width: 100vw;
+    background-color: gray;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: whitesmoke;
+    font-size: 50px;
+
+}
