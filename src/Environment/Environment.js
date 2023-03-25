@@ -20,6 +20,11 @@ export default function Environment() {
     useEffect(() => {
         if (refresh) {
           // Put the logic to refresh the component here
+            setState([[' ', ' ', ' ', ' '], [' ', ' ', ' ', ' '], [' ', ' ', ' ', ' '],  [' ', ' ', ' ', ' ']]);
+            generateWumpus();
+            generatePit();
+            generatePit();
+            generateGold();
           console.log('Component refreshed!');
           setRefresh(false);
         }
