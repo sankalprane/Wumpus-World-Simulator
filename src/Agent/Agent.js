@@ -199,27 +199,32 @@ export default function Agent({ state, updateState }) {
     function handleKeyDown(event) {
         if (agentDead)
             return;
-        setMoveCounter(oldValue => oldValue + 1)
         if (event.keyCode == '38') {
             console.log('Arrow Up Key Pressed')
+            setMoveCounter(oldValue => oldValue + 1)
             onArrowUpPressed();
         }
         else if (event.keyCode == '40') {
             console.log('Arrow Down Key Pressed')
+            setMoveCounter(oldValue => oldValue + 1)
             onArrowDownPressed();
         }
         else if (event.keyCode == '37') {
             console.log('Arrow Left Key Pressed')
+            setMoveCounter(oldValue => oldValue + 1)
             onArrowLeftPressed();
         }
         else if (event.keyCode == '39') {
             console.log('Arrow Right Key Pressed')
+            setMoveCounter(oldValue => oldValue + 1)
             onArrowRightPressed();
         } else if (event.keyCode == '13') {
             console.log('Enter Key Pressed')
+            setMoveCounter(oldValue => oldValue + 1)
             onEnterKeyPressed();
         } else if (event.keyCode == '32') {
             console.log('SpaceBar Pressed')
+            setMoveCounter(oldValue => oldValue + 1)
             onSpaceBarPressed();
         }
     }
@@ -246,7 +251,7 @@ export default function Agent({ state, updateState }) {
         <>
             <Board grid={state} locationX={locationX} locationY={locationY} arrowCount={arrowCount}></Board>
             <div class='info'>
-                <div className="stats">Current Score: {score - moveCounter}</div>
+                <div className="stats">Current Score: {score - moveCounter - (1 - arrowCount)*9}</div>
                 <div className="stats">Arrows Remaining: {arrowCount}</div>
                 <div style={{"margin-top": "10px"}}>
                     <div className="stats">Controls:</div>
